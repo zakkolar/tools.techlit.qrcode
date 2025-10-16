@@ -32,7 +32,7 @@
 
         h1 {
             color: #111827;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             text-align: center;
             font-size: 1.875rem;
             font-weight: 700;
@@ -243,11 +243,37 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        .description {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .description:last-of-type {
+             margin-bottom: 1.5rem;
+        }
+
+        .description a {
+            color: #3b82f6;
+            text-decoration: none;
+            transition: color 150ms;
+        }
+
+        .description a:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>QR Code Generator</h1>
+
+        <p class="description">No ads, no watermarks, no tracking, no data collection.</p>
+
+        <p class="description">Mostly <a href="https://github.com/zakkolar/tools.techlit.qrcode">coded</a> by Claude, reviewed and tweaked by a <a href="https://zkolar.xyz/">human</a>.</p>
 
         <div class="type-selector">
             <button class="type-btn active" data-type="url">URL</button>
