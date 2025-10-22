@@ -220,11 +220,10 @@
             color: #ffffff;
         }
 
-        .success-message {
+        .message {
             position: fixed;
             top: 1.25rem;
             right: 1.25rem;
-            background-color: #10b981;
             color: #ffffff;
             padding: 0.875rem 1.5rem;
             border-radius: 0.375rem;
@@ -239,7 +238,15 @@
             font-weight: 500;
         }
 
-        .success-message.show {
+        .message.success {
+            background-color: #10b981;
+        }
+
+        .message.warning {
+            background-color: #f59e0b;
+        }
+
+        .message.show {
             opacity: 1;
             transform: translateY(0);
         }
@@ -308,7 +315,7 @@
         </div>
     </div>
 
-    <div class="success-message" id="success-message">Copied to clipboard!</div>
+    <div class="message" id="message">Copied to clipboard!</div>
 
     <script src="qrcode.min.js"></script>
     <script>
@@ -319,7 +326,7 @@
         const typeButtons = document.querySelectorAll('.type-btn');
         const copyBtn = document.getElementById('copy-btn');
         const downloadBtn = document.getElementById('download-btn');
-        const successMessage = document.getElementById('success-message');
+        const message = document.getElementById('message');
 
         let currentType = 'url';
         let qrCode = null;
@@ -448,11 +455,13 @@
             }, 100);
         });
 
-        function showSuccessMessage(message) {
-            successMessage.textContent = message;
-            successMessage.classList.add('show');
+        function showMessage(text, success = true) {
+            message.textContent = text;
+            message.classList.remove('success', 'warning');
+            message.classList.add(success ? 'success' : 'warning');
+            message.classList.add('show');
             setTimeout(() => {
-                successMessage.classList.remove('show');
+                message.classList.remove('show');
             }, 2000);
         }
 
@@ -463,11 +472,11 @@
                     await navigator.clipboard.write([
                         new ClipboardItem({ 'image/png': blob })
                     ]);
-                    showSuccessMessage('Copied to clipboard!');
+                    showMessage('Copied to clipboard!');
                 });
             } catch (err) {
                 console.error('Failed to copy:', err);
-                showSuccessMessage('Failed to copy');
+                showMessage('Failed to copy', false);
             }
         });
 
@@ -482,7 +491,7 @@
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
-                showSuccessMessage('Downloaded!');
+                showMessage('Downloaded!');
             });
         });
 
