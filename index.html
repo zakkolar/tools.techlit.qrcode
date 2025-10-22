@@ -291,7 +291,6 @@
 
         <form id="qr-form">
             <div id="input-fields"></div>
-
             <div class="color-pickers">
                 <div class="input-group">
                     <input type="color" id="color-dark" value="#000000">
@@ -315,7 +314,7 @@
         </div>
     </div>
 
-    <div class="message" id="message">Copied to clipboard!</div>
+    <div class="message" id="message"></div>
 
     <script src="qrcode.min.js"></script>
     <script>
@@ -329,7 +328,6 @@
         const message = document.getElementById('message');
 
         let currentType = 'url';
-        let qrCode = null;
 
         const inputTemplates = {
             url: `
@@ -347,7 +345,7 @@
             phone: `
                 <div class="input-group">
                     <label for="phone-input">Enter Phone Number</label>
-                    <input type="tel" id="phone-input" placeholder="+1234567890" required>
+                    <input type="tel" id="phone-input" placeholder="555-555-5555" required>
                 </div>
             `,
             email: `
@@ -387,8 +385,7 @@
                 case 'text':
                     return document.getElementById('text-input').value;
                 case 'phone':
-                    const phone = document.getElementById('phone-input').value;
-                    return `tel:${phone}`;
+                    return `tel:${document.getElementById('phone-input').value}`;
                 case 'email':
                     const email = document.getElementById('email-input').value;
                     const subject = document.getElementById('email-subject').value;
@@ -433,7 +430,7 @@
             tempDiv.style.display = 'none';
             document.body.appendChild(tempDiv);
 
-            const tempQR = new QRCode(tempDiv, {
+            new QRCode(tempDiv, {
                 text: data,
                 width: 256,
                 height: 256,
